@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جَمِيلَةُ الرُّوح - آية يومية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%);
+      min-height: 100vh;
+      color: #1a1a1a;
+      transition: background 0.8s ease;
+      position: relative;
+      overflow-x: hidden;
+      direction: rtl;
+      text-align: right;
+    }
+    body.night-mode {
+      background: linear-gradient(180deg, #0B1120 0%, #1a2332 100%);
+      color: #ffffff;
+    }
+
+    .sky-decoration { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .cloud {
+      position: absolute;
+      background: rgba(255,255,255,0.6);
+      border-radius: 100px;
+      animation: float 20s infinite ease-in-out;
+    }
+    .cloud::before, .cloud::after { content: ''; position: absolute; background: rgba(255,255,255,0.6); border-radius: 100px; }
+    .cloud1 { width: 100px; height: 40px; top: 15%; left: 10%; animation-delay: 0s; }
+    .cloud1::before { width: 50px; height: 50px; top: -25px; left: 10px; }
+    .cloud1::after  { width: 60px; height: 35px; top: -15px; right: 10px; }
+    .cloud2 { width: 120px; height: 45px; top: 25%; right: 15%; animation-delay: 3s; }
+    .cloud2::before { width: 55px; height: 55px; top: -28px; left: 15px; }
+    .cloud2::after  { width: 65px; height: 40px; top: -18px; right: 15px; }
+    .cloud3 { width: 90px; height: 35px; bottom: 30%; left: 20%; animation-delay: 6s; }
+    .cloud3::before { width: 45px; height: 45px; top: -22px; left: 12px; }
+    .cloud3::after  { width: 50px; height: 30px; top: -15px; right: 12px; }
+    body.night-mode .cloud { opacity: 0; }
+
+    .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; opacity: 0; animation: twinkle 3s infinite; }
+    body.night-mode .star { opacity: 1; }
+
+    @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes twinkle { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    .logo {
+      font-family: 'Amiri', serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    body.night-mode .logo { color: white; }
+
+    .theme-toggle { width: 80px; height: 80px; cursor: pointer; }
+    .sun-moon-container { position: relative; width: 100%; height: 100%; }
+    .sun, .moon {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+    .sun { background: radial-gradient(circle, #FFD700 0%, #FFA500 70%); box-shadow: 0 0 40px rgba(255,215,0,0.5); opacity: 1; transform: scale(1); }
+    .moon { background: radial-gradient(circle, #F0F0F0 0%, #C0C0C0 70%); box-shadow: 0 0 40px rgba(240,240,240,0.5); opacity: 0; transform: scale(0.8); }
+    body.night-mode .sun  { opacity: 0; transform: scale(0.8); }
+    body.night-mode .moon { opacity: 1; transform: scale(1); }
+
+    .main-card {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 40px 35px;
+      text-align: center;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.1);
+      margin-bottom: 35px;
+      transition: all 0.8s ease;
+    }
+    body.night-mode .main-card {
+      background: rgba(30,40,60,0.88);
+      box-shadow: 0 12px 50px rgba(0,0,0,0.35);
+    }
+
+    .page-title {
+      font-family: 'Amiri', serif;
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+    .surah-category { font-size: 13px; color: #777; margin-bottom: 8px; }
+    body.night-mode .surah-category { color: #aaa; }
+    .surah-name-arabic { font-size: 36px; margin-bottom: 4px; }
+    .surah-name-english {
+      font-size: 22px;
+      color: #555;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 28px;
+    }
+    body.night-mode .surah-name-english { color: #bbb; }
+    .verse-number { font-size: 20px; color: #555; margin-bottom: 30px; }
+    body.night-mode .verse-number { color: #bbb; }
+
+    .arabic-text {
+      font-family: 'Amiri', serif;
+      font-size: 38px;
+      line-height: 1.9;
+      margin-bottom: 28px;
+    }
+    body.night-mode .arabic-text { color: white; }
+
+    .translation-text {
+      font-family: 'Inter', sans-serif;
+      direction: ltr;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.7;
+      color: #444;
+      max-width: 620px;
+      margin: 0 auto 35px;
+    }
+    body.night-mode .translation-text { color: #ccc; }
+
+    .continue-reading {
+      padding: 10px 28px;
+      border: 2px solid #222;
+      border-radius: 50px;
+      color: #222;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .continue-reading:hover { background: #222; color: white; }
+    body.night-mode .continue-reading {
+      border-color: white;
+      color: white;
+    }
+    body.night-mode .continue-reading:hover {
+      background: white;
+      color: #111;
+    }
+
+    .subscribe-section {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 45px 35px 35px;
+      text-align: center;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.1);
+      transition: all 0.8s ease;
+    }
+    body.night-mode .subscribe-section {
+      background: rgba(30,40,60,0.88);
+    }
+
+    .subscribe-title {
+      font-size: 26px;
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+
+    .email-input-container {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .email-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 20px;
+      font-size: 15px;
+      border: 2px solid #ddd;
+      border-radius: 50px;
+      outline: none;
+      text-align: right;
+      font-family: 'Amiri', serif;
+    }
+    .email-input:focus { border-color: #333; }
+    body.night-mode .email-input {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.25);
+      color: white;
+    }
+
+    .subscribe-button {
+      padding: 14px 36px;
+      background: #222;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .subscribe-button:hover { transform: translateY(-2px); }
+    body.night-mode .subscribe-button {
+      background: white;
+      color: #111;
+    }
+
+    .memorial-section {
+      margin-top: 80px;
+      padding: 50px 20px;
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      text-align: center;
+      font-size: 17px;
+      line-height: 1.8;
+      color: #444;
+    }
+    body.night-mode .memorial-section {
+      background: rgba(30,40,60,0.5);
+      color: #ddd;
+    }
+    .memorial-name {
+      font-size: 28px;
+      font-family: 'Amiri', serif;
+      color: #555;
+      font-weight: 700;
+      margin: 12px 0;
+    }
+    body.night-mode .memorial-name { color: #ddd; }
+
+    .footer {
+      text-align: center;
+      padding: 50px 20px 30px;
+      font-size: 14px;
+      color: #666;
+    }
+    body.night-mode .footer { color: #aaa; }
+
+    @media (max-width: 768px) {
+      .container { padding: 30px 12px; }
+      .theme-toggle { width: 70px; height: 70px; }
+      .main-card, .subscribe-section { padding: 35px 25px; }
+      .page-title { font-size: 36px; }
+      .surah-name-arabic { font-size: 30px; }
+      .surah-name-english { font-size: 19px; }
+      .arabic-text { font-size: 32px; }
+      .translation-text { font-size: 17px; }
+      .subscribe-title { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sky-decoration">
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div id="stars"></div>
+  </div>
+
+  <div class="container">
+
+    <div class="header">
+      <div class="logo">جَمِيلَةُ الرُّوح</div>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="sun-moon-container">
+          <div class="sun"></div>
+          <div class="moon"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-card">
+      <h1 class="page-title">جَمِيلَةُ الرُّوح</h1>
+      
+      <div class="surah-category">الرحمن</div>
+      
+      <h2 class="surah-name-arabic">سورة الرحمن</h2>
+      <div class="surah-name-english">Surah Ar-Rahman</div>
+
+      <div class="verse-number">الآية ١٣</div>
+
+      <div class="arabic-text">فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ</div>
+      
+      <div class="translation-text">
+        So which of the favors of your Lord would you deny?
+      </div>
+
+      <a href="https://www.quran.com/55/13" target="_blank" class="continue-reading">مواصلة القراءة ←</a>
+    </div>
+
+    <div class="subscribe-section">
+      <h2 class="subscribe-title">
+        اشترك ليصلك كل يوم آية مباركة<br>
+        وساهم في بناء عادة يومية مع القرآن
+      </h2>
+
+      <div class="email-input-container">
+        <input type="email" class="email-input" placeholder="أدخل بريدك الإلكتروني" id="emailInput">
+        <button class="subscribe-button" onclick="subscribe()">اشتراك</button>
+      </div>
+    </div>
+
+    <div class="memorial-section">
+      <div style="font-size: 20px; margin-bottom: 18px;">✦ في ذكرى جميلة الروح ✦</div>
+      <div style="font-size: 22px; margin-bottom: 12px;">هذا الموقع مُهدى إلى روح جدتي الحبيبة</div>
+      <div class="memorial-name">جميلة رصّاص</div>
+      <div style="font-size: 20px; margin: 15px 0;">رحمها الله وأسكنها فسيح جناته</div>
+
+      <div style="margin: 30px 0; font-style: italic;">
+        تم إنشاء هذا الموقع حباً ووفاءً لذكراها<br>
+        وكل آية تُقرأ هنا هي صدقة جارية لها بإذن الله<br>
+        إلى يوم الدين
+      </div>
+
+      <div style="font-size: 24px; margin-top: 25px;">
+        اللَّهُمَّ اغْفِرْ لَهَا وَارْحَمْهَا وَعَافِهَا وَاعْفُ عَنْهَا
+      </div>
+    </div>
+
+    <div class="footer">
+      جميلة_الروح • <span id="currentDate"></span><br>
+      <span id="hijriDate"></span>
+    </div>
+
+  </div>
+
+  <script>
+    // Stars
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 120; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      starsContainer.appendChild(star);
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('night-mode');
+    }
+
+    function subscribe() {
+      const email = document.getElementById('emailInput').value;
+      if (email && email.includes('@')) {
+        alert('شكراً لاشتراكك! نسأل الله أن يجعلها في ميزان حسناتك ');
+        document.getElementById('emailInput').value = '';
+      } else {
+        alert('الرجاء إدخال بريد إلكتروني صحيح');
+      }
+    }
+
+    // Date
+    const now = new Date();
+    document.getElementById('currentDate').textContent = now.toLocaleDateString('ar-SA', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    const hijriYearApprox = now.getFullYear() - 579;
+    const hijriMonths = ['محرم','صفر','ربيع الأول','ربيع الآخر','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+    document.getElementById('hijriDate').textContent =
+      `${hijriMonths[now.getMonth()]} ${now.getDate()}, ${hijriYearApprox} هـ`;
+  </script>
+</body>
+</html>
